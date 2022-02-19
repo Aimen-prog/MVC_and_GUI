@@ -21,10 +21,15 @@ class Controller():
 
         if self.view.get_value("Nom") :
             lname = f"{self.view.get_value('Nom')}"
-            person_info= self.model.search_person(lname)
-            self.view.display_search(person_info)
+            
+            if self.model.search_person(lname) :
+                person_info= self.model.search_person(lname)
+                self.view.display_search(person_info)
+            else :
+                self.view.search_not_found()
+                   
         else :
-            self.view.search_emptiness_warning()
+            self.view.empty_field_error()
 
 
         

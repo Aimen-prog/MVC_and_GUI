@@ -63,14 +63,21 @@ class View(Tk):
         """
         messagebox.showinfo("Results found: ",person_info)
 
-    def search_emptiness_warning(self) :
+    def empty_field_error(self) :
+                
+        """
+        Method displaying an error message: empty last name field.
+        
+        """
+        messagebox.showerror('Error', 'Last name field must be filled!')
+
+    def search_not_found(self) :
                 
         """
         Method displaying a warning message: empty last name field.
         
         """
-        messagebox.showwarning('Warning', 'Last name field must be filled!')
-
+        messagebox.showwarning('Warning', 'No results found, nothing matches!')
     
     def main(self):
         print("[View] main")
