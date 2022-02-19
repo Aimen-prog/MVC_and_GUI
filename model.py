@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import csv
+
 class Person:
     def __init__(self, nom, prenom, telephone='', adresse='', ville=''):
         self.nom = nom
@@ -51,16 +53,45 @@ class Ensemble:
             for to_del in values_to_del:
                 del self.list_person[to_del]
                 print('Deleted: '+to_del)
+                             
 
-    def search_person(self, name):
-        names_fetched = []
-        for element in self.list_person.keys():
-            if name in element:
-                names_fetched.append(element)
-        print(names_fetched)
+
+    def search_person(self, lname, person_fetched = ''):
+        
+        with open('annuaire.tsv', 'r') as annuaire:
+            reader = csv.DictReader(annuaire, delimiter='\t')
+            for row in reader:
+                if lname.lower() == row['Nom'].lower():
+                    person_fetched += '\nPrenom : %s\nNom: %s\nTelephone: %s\nAdresse: %s\nVille: %s\n'% (
+                            row['Prenom'],
+                            row['Nom'],
+                            row['Telephone'],
+                            row['Adresse'],
+                            row['Ville'])
+        return person_fetched   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
 
     def __str__(self):
         test = ''
         for element in self.list_person:
             test += element
         return test
+
+
+
+
+
+
+
+
+
+

@@ -12,7 +12,18 @@ class Controller():
         self.view.main()
     
     def search(self):
-        pass
+        
+        """
+        Method that searches a person in the database
+        """
+        if self.view.get_value("Nom") :
+            lname = f"{self.view.get_value('Nom')}"
+            person_info= self.model.search_person(lname)
+            self.view.display_search(person_info)
+            
+            
+
+        
     def delete(self):
         pass
     

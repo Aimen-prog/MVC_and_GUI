@@ -31,7 +31,7 @@ class View(Tk):
         self.windows["fenetreErreur"] = ...
 
     def get_value(self, key):
-        return self.view.widgets_entry[key].get()
+        return self.widgets_entry[key].get()
 
     def create_fields(self):
         i, j  = 0, 0
@@ -52,9 +52,14 @@ class View(Tk):
             buttonW = Button(self, text = idi, command=(lambda button=idi: self.controller.button_press_handle(button)))
             self.widgets_button[idi] = buttonW
             buttonW.grid(row=i+1,column=j)
-            #self.widgets_button[idi].config(command = idi)
 
             j += 1
+        
+    def display_search(self, person_info) :
+        messagebox.showinfo(person_info)
+    
+    
+
     
     def main(self):
         print("[View] main")
