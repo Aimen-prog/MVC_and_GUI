@@ -15,8 +15,9 @@ class Controller():
         
         """
         Method that calls 'search_person' and 'display_search' methods in order to
-        display the results for searched persons by their last name
-        
+        display the results for searched persons by their last name.
+        if not found, it calls 'search_not_found' and 'empty_field_error' methods of view
+        to explain the problem to the user.
         """
 
         if self.view.get_value("Nom") :
