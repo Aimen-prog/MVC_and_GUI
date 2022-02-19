@@ -56,7 +56,7 @@ class View(Tk):
             j += 1
         
     def display_search(self, person_info) :
-        messagebox.showinfo(person_info)
+        messagebox.showinfo("Results found: ",person_info)
     
     
 
