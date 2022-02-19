@@ -14,14 +14,18 @@ class Controller():
     def search(self):
         
         """
-        Method that searches a person in the database
+        Method that calls 'search_person' and 'display_search' methods in order to
+        display the results for searched persons by their last name
+        
         """
+
         if self.view.get_value("Nom") :
             lname = f"{self.view.get_value('Nom')}"
             person_info= self.model.search_person(lname)
             self.view.display_search(person_info)
-            
-            
+        else :
+            self.view.search_emptiness_warning()
+
 
         
     def delete(self):

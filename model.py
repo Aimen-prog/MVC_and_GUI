@@ -58,6 +58,12 @@ class Ensemble:
 
     def search_person(self, lname, person_fetched = ''):
         
+        """
+        Method that searches a person in a database (annuaire) by its last name 
+        and returns its corresponding informations.
+        If many persons with same last name, it returns all of these persons. ;) 
+        """
+        
         with open('annuaire.tsv', 'r') as annuaire:
             reader = csv.DictReader(annuaire, delimiter='\t')
             for row in reader:
@@ -68,16 +74,10 @@ class Ensemble:
                             row['Telephone'],
                             row['Adresse'],
                             row['Ville'])
+                    
         return person_fetched   
         
-        
-        
-        
-        
-        
-        
-        
-        
+
 
 
     def __str__(self):
