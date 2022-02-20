@@ -80,7 +80,7 @@ class View(Tk):
 
     def insertion_failed(self) :
                 
-        """Method displaying a warning message: empty last name field."""
+        """Method displaying an error message: person (full name) already in 'annuaire' db"""
         
         messagebox.showerror('Insertion failed!', 'This person exists already!')
     
