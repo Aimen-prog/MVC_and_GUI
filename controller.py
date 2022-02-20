@@ -51,8 +51,9 @@ class Controller():
 
         if self.model.insert_person(person) : # if added to dictionnary then add to db
             self.model.update_annuaire_db(person)
+            self.view.insertion_done()
         else:
-            print("not added")
+            self.view.insertion_failed()
 
 
 

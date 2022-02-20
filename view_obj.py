@@ -12,7 +12,6 @@ from tkinter import messagebox
 """
 Class View of the project
 
-
 """
 
 class View(Tk):
@@ -56,28 +55,36 @@ class View(Tk):
             j += 1
         
     def display_search(self, person_info) :
-                
-        """
-        Method displaying message box showing searched person(s) informations
+           
+        """Method displaying message box showing searched person(s) informations"""
         
-        """
-        messagebox.showinfo("Results found: ",person_info)
+        messagebox.showinfo("Results found:", person_info)
 
     def empty_field_error(self) :
-                
-        """
-        Method displaying an error message: empty last name field.
+
+        """Method displaying an error message: empty last name field."""
         
-        """
         messagebox.showerror('Error', 'Last name field must be filled!')
 
     def search_not_found(self) :
                 
-        """
-        Method displaying a warning message: empty last name field.
+        """Method displaying a warning message: empty last name field."""
         
-        """
         messagebox.showwarning('Warning', 'No results found, nothing matches!')
+
+    def insertion_done(self) :
+                
+        """Method displaying a successful insertion message"""
+        
+        messagebox.showinfo('Insertion status', 'Insertion successfully done!')
+
+    def insertion_failed(self) :
+                
+        """Method displaying a warning message: empty last name field."""
+        
+        messagebox.showerror('Insertion failed!', 'This person exists already!')
+    
+    
     
     def main(self):
         print("[View] main")

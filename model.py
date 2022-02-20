@@ -60,7 +60,6 @@ class Ensemble:
                                   person.adresse, person.ville])
 
 
-
     def insert_person(self, person):
         
         """
