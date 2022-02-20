@@ -39,11 +39,9 @@ class Controller():
     
     def insert(self):
         """
-        Transition from Dict to database
-        
-        Method that verifies input calling 'insert_person' method and when it is
-        verified (unique/instance of person) then we insert it into 
-        real database 'annuaire.tsv' (updating database from the dictionnary)
+        Method that verifies input by calling 'insert_person' method
+        if verified (person not already present in the database), we insert it in
+        the database 'annuaire.tsv'
         """
         person = Person(self.view.get_value("Nom"),
             self.view.get_value("Prenom"),
@@ -51,9 +49,12 @@ class Controller():
             self.view.get_value("Adresse"),
             self.view.get_value("Ville"))
 
-        if self.model.insert_person(person) :
-            print(self.model.list_person)
-            
+        if self.model.insert_person(person) : # if added to dictionnary then add to db
+            self.model.update_annuaire_db(person)
+        else:
+            print("not added")
+
+
 
     def button_press_handle(self, buttonId):
         print("[Controller][button_press_handle] "+ buttonId)
