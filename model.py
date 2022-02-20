@@ -4,14 +4,9 @@
 import csv
 
 class Person:
-    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):
-        if len(nom.replace(" ", "")) != 0 and len(prenom.replace(" ", "")) != 0 and nom.isalpha() and prenom.isalpha():
-            self.nom = nom
-            self.prenom = prenom
-
-        else:
-            raise Exception("Invalid full name, shouldn't be empty!")
-            
+    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):      
+        self.nom = nom
+        self.prenom = prenom 
         self.telephone = telephone
         self.adresse = adresse
         self.ville = ville
@@ -73,24 +68,27 @@ class Ensemble:
         It's not allowing duplicated full names because of key unicity property.
         
         It returns TRUE when new person is added (dict length changed)
-        FALSE when empty data/isn't Person instance or duplicated names(unchanged length)
+        FALSE when wrong data input/isn't Person instance or duplicated names(unchanged length)
 
         """
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
         
-        if isinstance(person, Person) :
-            prenom = person.get_prenom().lower()
-            nom = person.get_nom().lower()
-            self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
-                
-            curr_dict_len= len(self.list_person) #current length of dict      
-            if curr_dict_len == init_dict_len :
-                return False #not to be added to the database (duplicate)
-            else:
-                return True #to be added (not duplicated) 
+        if len(person.nom.replace(" ", "")) == 0 and len(person.prenom.replace(" ", "")) == 0 or (person.nom.isalnum() or person.prenom.isalnum()):
+            return False #bad full name input
         else :
-            return False #not an instance of person
+            if isinstance(person, Person) :
+                prenom = person.get_prenom().lower()
+                nom = person.get_nom().lower()
+                self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
+                
+                curr_dict_len= len(self.list_person) #current length of dict      
+                if curr_dict_len != init_dict_len :
+                    return True #to be added (not duplicated) 
+                else:
+                    return False #not to be added to the database (duplicated)
+            else :
+                return False #not an instance of person
         
 
     def delete_person(self, person):

@@ -40,8 +40,8 @@ class Controller():
     def insert(self):
         """
         Method that verifies input by calling 'insert_person' method
-        if verified (person not already present in the database), we insert it in
-        the database 'annuaire.tsv'
+        if verified (person not already present in the database or wrong input), then insert 
+        it in the database 'annuaire.tsv'
         """
         person = Person(self.view.get_value("Nom"),
             self.view.get_value("Prenom"),
@@ -51,11 +51,10 @@ class Controller():
 
         if self.model.insert_person(person) : # if added to dictionnary then add to db
             self.model.update_annuaire_db(person)
-            self.view.insertion_done()
+            self.view.insertion_done() 
         else:
             self.view.insertion_failed()
-
-
+            
 
     def button_press_handle(self, buttonId):
         print("[Controller][button_press_handle] "+ buttonId)

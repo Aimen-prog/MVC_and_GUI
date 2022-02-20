@@ -80,10 +80,13 @@ class View(Tk):
 
     def insertion_failed(self) :
                 
-        """Method displaying an error message: 
-            person (full name) already in the database/empty full name/incorrect data"""
+        """Method displaying a warning message: person (full name) already in the database
+        or bad input"""
         
-        messagebox.showerror('Insertion failed!', 'Person exists already or bad input')
+        messagebox.showwarning('Insertion failed!', 'Possible reasons:\nPerson exists already\nWrong input(empty full name fields/inappropriate full name)')
+
+
+        
     
     
     
