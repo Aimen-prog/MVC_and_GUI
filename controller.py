@@ -38,14 +38,19 @@ class Controller():
         pass
     
     def insert(self):
+        """
+        Method that adds a person object to a dictionnary and if it's 
+        verified (unique/instance of person) then we insert it into database 'annuaire.tsv'
+        """
         person = Person(self.view.get_value("Nom"),
             self.view.get_value("Prenom"),
             self.view.get_value("Telephone"),
             self.view.get_value("Adresse"),
             self.view.get_value("Ville"))
-        print(person)
 
         self.model.insert_person(person)
+        print(self.model.list_person)
+            
 
     def button_press_handle(self, buttonId):
         print("[Controller][button_press_handle] "+ buttonId)

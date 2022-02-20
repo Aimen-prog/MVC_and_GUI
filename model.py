@@ -10,7 +10,6 @@ class Person:
         self.telephone = telephone
         self.adresse = adresse
         self.ville = ville
-       # self.id =
 
     def get_nom(self):
         return self.nom
@@ -34,12 +33,29 @@ class Person:
 class Ensemble:
     def __init__(self):
         self.list_person = {}
+        
+    def update_person_dict(self):
+
+        with open('annuaire.tsv', 'r') as annuaire:
+            reader = csv.DictReader(annuaire, delimiter='\t')
+            for row in reader:
+                self.list_person['%s %s'% (
+                            row['Prenom'].lower(),
+                            row['Nom'].lower())]= Person 
+            #lowercasing them to help control duplicates below
 
     def insert_person(self, person):
-        if isinstance(person, Person):
+        
+        """
+        Method that adds a person object to a dictionnary and if it's 
+        verified (unique/instance of person) then we insert it into database 'annuaire.tsv'
+        """
+        self.update_person_dict()
+        if isinstance(person, Person) and f"{person.prenom} {person.nom}".lower() not in self.list_person:
             prenom = person.get_prenom()
             nom = person.get_nom()
             self.list_person[f"{prenom} {nom}"] = person
+        self.update_person_dict()
 
     def delete_person(self, person):
         if isinstance(person, Person):
