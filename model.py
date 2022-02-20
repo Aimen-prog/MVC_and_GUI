@@ -5,8 +5,13 @@ import csv
 
 class Person:
     def __init__(self, nom, prenom, telephone='', adresse='', ville=''):
-        self.nom = nom
-        self.prenom = prenom
+        if len(nom.replace(" ", "")) != 0 and len(prenom.replace(" ", "")) != 0 and nom.isalpha() and prenom.isalpha():
+            self.nom = nom
+            self.prenom = prenom
+
+        else:
+            raise Exception("Invalid full name, shouldn't be empty!")
+            
         self.telephone = telephone
         self.adresse = adresse
         self.ville = ville
@@ -74,21 +79,18 @@ class Ensemble:
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
         
-        if len(person.nom) == 0 and len(person.prenom) == 0:
-            return False #not to be added to the database(empty data)
-        else :
-            if isinstance(person, Person) :
-                prenom = person.get_prenom().lower()
-                nom = person.get_nom().lower()
-                self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
+        if isinstance(person, Person) :
+            prenom = person.get_prenom().lower()
+            nom = person.get_nom().lower()
+            self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
                 
-                curr_dict_len= len(self.list_person) #current length of dict      
-                if curr_dict_len == init_dict_len :
-                    return False #not to be added to the database (duplicate)
-                else:
-                    return True #to be added (not duplicated) 
-            else :
-                return False #not an instance of person
+            curr_dict_len= len(self.list_person) #current length of dict      
+            if curr_dict_len == init_dict_len :
+                return False #not to be added to the database (duplicate)
+            else:
+                return True #to be added (not duplicated) 
+        else :
+            return False #not an instance of person
         
 
     def delete_person(self, person):
