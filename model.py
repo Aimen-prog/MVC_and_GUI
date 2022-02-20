@@ -63,6 +63,9 @@ class Ensemble:
             prenom = person.get_prenom()
             nom = person.get_nom()
             self.list_person[f"{prenom} {nom}"] = person
+            return True
+        else :
+            return False
 
     def delete_person(self, person):
         if isinstance(person, Person):

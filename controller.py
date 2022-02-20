@@ -51,8 +51,8 @@ class Controller():
             self.view.get_value("Adresse"),
             self.view.get_value("Ville"))
 
-        self.model.insert_person(person)
-        print(self.model.list_person)
+        if self.model.insert_person(person) :
+            print(self.model.list_person)
             
 
     def button_press_handle(self, buttonId):
