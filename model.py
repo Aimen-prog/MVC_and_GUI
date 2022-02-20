@@ -35,6 +35,10 @@ class Ensemble:
         self.list_person = {}
         
     def update_person_dict(self):
+        """
+        Method that updates the dictionnary of the class from 'annuaire.tsv' database
+        
+        """
 
         with open('annuaire.tsv', 'r') as annuaire:
             reader = csv.DictReader(annuaire, delimiter='\t')
@@ -47,18 +51,18 @@ class Ensemble:
     def insert_person(self, person):
         
         """
-        dictionnary updated from the database.
-        Method that adds a person object to a dictionnary and verifies if it is
-        an instance of person and
-        that it's unique inside (not allowing duplicated names and last names)
-        re-update dictionnary (transitory structure before stocking to annuaire database)
+        Method that allows class dictionnary to be updated from the database
+        then adds a Person object to the dictionnary if it is an instance of Person and
+        that it's unique (not allowing duplicated names and last names)
+        
+        Note: class dictionnary is used as a transitory structure between db "annuaire.tsv"
+        and insertion process
         """
         self.update_person_dict()
         if isinstance(person, Person) and f"{person.prenom} {person.nom}".lower() not in self.list_person:
             prenom = person.get_prenom()
             nom = person.get_nom()
             self.list_person[f"{prenom} {nom}"] = person
-        self.update_person_dict()
 
     def delete_person(self, person):
         if isinstance(person, Person):
