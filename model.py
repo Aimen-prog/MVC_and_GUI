@@ -47,8 +47,11 @@ class Ensemble:
     def insert_person(self, person):
         
         """
-        Method that adds a person object to a dictionnary and if it's 
-        verified (unique/instance of person) then we insert it into database 'annuaire.tsv'
+        dictionnary updated from the database.
+        Method that adds a person object to a dictionnary and verifies if it is
+        an instance of person and
+        that it's unique inside (not allowing duplicated names and last names)
+        re-update dictionnary (transitory structure before stocking to annuaire database)
         """
         self.update_person_dict()
         if isinstance(person, Person) and f"{person.prenom} {person.nom}".lower() not in self.list_person:

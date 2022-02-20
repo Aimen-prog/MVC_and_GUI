@@ -39,8 +39,11 @@ class Controller():
     
     def insert(self):
         """
-        Method that adds a person object to a dictionnary and if it's 
-        verified (unique/instance of person) then we insert it into database 'annuaire.tsv'
+        Transition from Dict to database
+        
+        Method that verifies input calling 'insert_person' method and when it is
+        verified (unique/instance of person) then we insert it into 
+        real database 'annuaire.tsv' (updating database from the dictionnary)
         """
         person = Person(self.view.get_value("Nom"),
             self.view.get_value("Prenom"),
