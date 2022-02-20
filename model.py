@@ -48,7 +48,7 @@ class Ensemble:
                             row['Nom'].lower())]= Person 
             #lowercasing them to help control duplicates afterwards
 
-    def update_annuaire_db(self,person):
+    def insert_to_annuaire(self,person):
         """
         Method that allows to update the 'annuaire.tsv' database 
         
@@ -58,6 +58,32 @@ class Ensemble:
             writer = csv.writer(annuaire, delimiter='\t')
             writer.writerow([person.nom, person.prenom, person.telephone, 
                                   person.adresse, person.ville])
+            
+            
+    def delete_from_annuaire(self,person):
+        """
+        Method that allows to update the 'annuaire.tsv' database after deletion
+        using a only person last name recuperated from the interface
+        Note: new file "annuaire_after_deletion.tsv" is created and like for searching
+        method if many persons with same last name it deletes them all ;).
+ 
+        """
+
+        filePath = "annuaire.tsv"
+        with open(filePath)	as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            
+            filePath = "annuaire_after_deletion.tsv"
+            with open(filePath,'w',newline='') as f:
+                fieldnames = ["Nom", "Prenom", "Telephone", "Adresse", "Ville"]
+                writer = csv.DictWriter(f,fieldnames=fieldnames, delimiter='\t')
+                deletion = person.nom.lower()
+                
+                for row in reader:
+                    if deletion != row['Nom'].lower():
+                        writer.writerow(row) ; # write all non-matching rows
+                    else:
+                        print("Deleted") # nothing to write
 
 
     def insert_person(self, person):
@@ -92,18 +118,31 @@ class Ensemble:
         
 
     def delete_person(self, person):
+        """
+        Method that deletes a person from dictionnary prevously updated from database.
+        Returns True if deleted. False if not.
+        """
+        self.update_person_dict()
+        init_dict_len= len(self.list_person) #initial length of dict
+        
         if isinstance(person, Person):
             prenom = person.get_prenom()
             nom = person.get_nom()
-           # del self.list_person[]
             values_to_del = []
+
             for element in self.list_person.keys():
                 if prenom in element or nom in element:
                     values_to_del.append(element)
+
             for to_del in values_to_del:
                 del self.list_person[to_del]
-                print('Deleted: '+to_del)
-                             
+                curr_dict_len= len(self.list_person) #initial length of dict
+                if init_dict_len!=curr_dict_len: #dict length changed
+                    return True #to be deleted from db
+                else:
+                    return False #not to be deleted
+        else :
+            return False #not an instance of person
 
 
     def search_person(self, lname, person_fetched = ''):

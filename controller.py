@@ -35,8 +35,20 @@ class Controller():
 
         
     def delete(self):
-        pass
-    
+        
+        person = Person(self.view.get_value("Nom"),
+            self.view.get_value("Prenom"),
+            self.view.get_value("Telephone"),
+            self.view.get_value("Adresse"),
+            self.view.get_value("Ville"))
+
+        if self.model.delete_person(person) : # if deleted from dict then del from db
+            self.model.delete_from_annuaire(person)
+            self.view.insertion_done() 
+        
+
+
+
     def insert(self):
         """
         Method that verifies input by calling 'insert_person' method
@@ -50,7 +62,7 @@ class Controller():
             self.view.get_value("Ville"))
 
         if self.model.insert_person(person) : # if added to dictionnary then add to db
-            self.model.update_annuaire_db(person)
+            self.model.insert_to_annuaire(person)
             self.view.insertion_done() 
         else:
             self.view.insertion_failed()
