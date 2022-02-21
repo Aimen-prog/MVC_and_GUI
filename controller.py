@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Controller class of the program
+
+"""
+
+__author__ = 'Aimen CHERIF'
+
 from view_obj import View
 from model import Ensemble
 from model import Person
@@ -8,6 +18,10 @@ class Controller():
         self.model = Ensemble()
     
     def start_view(self):
+        
+        """
+        Method interface visibility
+        """
         self.view.protocol("WM_DELETE_WINDOW", self.quit_program)
         self.view.create_fields()
         self.view.main()
@@ -89,8 +103,3 @@ class Controller():
             self.delete()
         elif buttonId == "Inserer":
             self.insert()
-
-
-if __name__ == "__main__":
-    controller = Controller()
-    controller.start_view()

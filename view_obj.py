@@ -1,4 +1,11 @@
-# coding: utf-8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+View class of the program
+
+"""
+__author__ = 'Aimen CHERIF'
 
 import os
 from tkinter import Button
@@ -25,7 +32,6 @@ class View(Tk):
         self.buttons = ["Chercher", "Inserer", "Effacer"]
         self.modelListFields = []
         self.fileName = None
-        self.windows ={}
 
 
     def get_value(self, key):

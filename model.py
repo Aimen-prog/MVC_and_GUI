@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+Model class of the program
+
+"""
+
+__author__ = 'Aimen CHERIF'
+
 import csv
 
 class Person:
-    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):      
+    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):   
+        """
+        Class constructor
+        """
         self.nom = nom
         self.prenom = prenom 
         self.telephone = telephone
