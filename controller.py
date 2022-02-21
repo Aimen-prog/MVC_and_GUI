@@ -87,13 +87,13 @@ class Controller():
             self.view.insertion_done() 
         else:
             self.view.insertion_failed()
-        
+
     def quit_program(self):
         """
         Method that calls "quit_secure" for quit program confirmation 
         """
         self.view.quit_secure()
-            
+
 
     def button_press_handle(self, buttonId):
         print("[Controller][button_press_handle] "+ buttonId)
