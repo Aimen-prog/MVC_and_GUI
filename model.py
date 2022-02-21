@@ -11,12 +11,12 @@ __author__ = 'Aimen CHERIF'
 import csv
 
 class Person:
-    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):   
+    def __init__(self, nom, prenom, telephone='', adresse='', ville=''):
         """
         Class constructor
         """
         self.nom = nom
-        self.prenom = prenom 
+        self.prenom = prenom
         self.telephone = telephone
         self.adresse = adresse
         self.ville = ville
@@ -43,11 +43,11 @@ class Person:
 class Ensemble:
     def __init__(self):
         self.list_person = {}
-        
+
     def update_person_dict(self):
         """
         Method that updates the dictionnary of the class from 'annuaire.tsv' database
-        
+
         """
 
         with open('annuaire.tsv', 'r') as annuaire:
@@ -55,21 +55,21 @@ class Ensemble:
             for row in reader:
                 self.list_person['%s %s'% (
                             row['Prenom'].lower(),
-                            row['Nom'].lower())]= Person 
+                            row['Nom'].lower())]= Person
             #lowercasing them to help control duplicates afterwards
 
     def insert_to_annuaire(self,person):
         """
-        Method that allows to update the 'annuaire.tsv' database 
-        
+        Method that allows to update the 'annuaire.tsv' database
+
         """
 
         with open('annuaire.tsv', 'a') as annuaire:
             writer = csv.writer(annuaire, delimiter='\t')
-            writer.writerow([person.nom, person.prenom, person.telephone, 
+            writer.writerow([person.nom, person.prenom, person.telephone,
                                   person.adresse, person.ville])
-            
-            
+
+
     def delete_from_annuaire(self,person):
         """
         Method that allows to update the 'annuaire.tsv' database after deletion
@@ -92,18 +92,18 @@ class Ensemble:
 
 
     def insert_person(self, person):
-        
+
         """
         First, this method allows the dict to be updated from the annuaire database.
-        Then, it adds a Person object's full name to the dict. 
-        
+        Then, it adds a Person object's full name to the dict.
+
         It returns TRUE when person is added (dict length changed)= signal of add to db
         FALSE when wrong data input/isn't Person instance or duplicated names(unchanged length)
 
         """
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
-        
+
         if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0 or (person.nom.isalnum() or person.prenom.isalnum()):
             return False #bad full name input
         else :
@@ -111,19 +111,19 @@ class Ensemble:
                 prenom = person.get_prenom().lower()
                 nom = person.get_nom().lower()
                 self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
-                
-                curr_dict_len= len(self.list_person) #current length of dict      
+
+                curr_dict_len= len(self.list_person) #current length of dict    
                 if curr_dict_len != init_dict_len :
-                    return True #to be added (not duplicated) 
+                    return True #to be added (not duplicated)
                 else:
                     return False #not to be added to the database (duplicated)
             else :
                 return False #not an instance of person
-        
+
 
     def delete_person(self, person):
         """
-        Method that deletes a person (by its fullname) from dictionnary previously 
+        Method that deletes a person (by its fullname) from dictionnary previously
         updated from database.
         Returns True if deleted. False if not.
         """
@@ -132,7 +132,7 @@ class Ensemble:
 
         if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0 :
             return False #bad full name input
-        
+
         if isinstance(person, Person):
             prenom = person.get_prenom().lower()
             nom = person.get_nom().lower()
@@ -154,13 +154,13 @@ class Ensemble:
 
 
     def search_person(self, lname, person_fetched = ''):
-        
+
         """
         Method that searches a person in a database (annuaire) by its last name 
         and returns its corresponding informations.
-        If many persons with same last name, it returns all of these persons. ;) 
+        If many persons with same last name, it returns all of these persons. ;)
         """
-        
+
         with open('annuaire.tsv', 'r') as annuaire:
             reader = csv.DictReader(annuaire, delimiter='\t')
             for row in reader:
@@ -172,9 +172,7 @@ class Ensemble:
                             row['Adresse'],
                             row['Ville'])
                     
-        return person_fetched   
-        
-
+        return person_fetched
 
 
     def __str__(self):
@@ -182,13 +180,3 @@ class Ensemble:
         for element in self.list_person:
             test += element
         return test
-
-
-
-
-
-
-
-
-
-
