@@ -75,7 +75,6 @@ class Ensemble:
         Method that allows to update the 'annuaire.tsv' database after deletion
         using a only person last name recuperated from the interface
         Note:  new file "annuaire_after_deletion.tsv" is created
-                if many persons with same last name it deletes them all ;)
         """
 
         nom = person.get_nom().lower()
