@@ -64,23 +64,19 @@ class Ensemble:
         """
         Method that allows to update the 'annuaire.tsv' database after deletion
         using a only person last name recuperated from the interface
-        Note: new file "annuaire_after_deletion.tsv" is created and like for searching
-        method if many persons with same last name it deletes them all ;).
- 
+        Note:  new file "annuaire_after_deletion.tsv" is created
+                if many persons with same last name it deletes them all ;)
         """
 
-        filePath = "annuaire.tsv"
-        with open(filePath)	as f:
-            reader = csv.DictReader(f, delimiter='\t')
-            
-            filePath = "annuaire_after_deletion.tsv"
-            with open(filePath,'w',newline='') as f:
-                fieldnames = ["Nom", "Prenom", "Telephone", "Adresse", "Ville"]
-                writer = csv.DictWriter(f,fieldnames=fieldnames, delimiter='\t')
-                deletion = person.nom.lower()
-                
+        nom = person.get_nom().lower()
+        with open('annuaire_after_deletion.tsv', 'w+') as output_file:
+            fieldnames = ["Nom", "Prenom", "Telephone", "Adresse", "Ville"]
+            writer = csv.DictWriter(output_file,fieldnames=fieldnames, delimiter='\t')
+            with open('annuaire.tsv', 'r') as input_file:
+                reader = csv.DictReader(input_file, delimiter='\t')
+
                 for row in reader:
-                    if deletion != row['Nom'].lower():
+                    if nom != row['Nom'].lower():
                         writer.writerow(row) ; # write all non-matching rows
                     else:
                         print("Deleted") # nothing to write
@@ -91,16 +87,15 @@ class Ensemble:
         """
         First, this method allows the dict to be updated from the annuaire database.
         Then, it adds a Person object's full name to the dict. 
-        It's not allowing duplicated full names because of key unicity property.
         
-        It returns TRUE when new person is added (dict length changed)
+        It returns TRUE when person is added (dict length changed)= signal of add to db
         FALSE when wrong data input/isn't Person instance or duplicated names(unchanged length)
 
         """
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
         
-        if len(person.nom.replace(" ", "")) == 0 and len(person.prenom.replace(" ", "")) == 0 or (person.nom.isalnum() or person.prenom.isalnum()):
+        if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0 or (person.nom.isalnum() or person.prenom.isalnum()):
             return False #bad full name input
         else :
             if isinstance(person, Person) :
@@ -119,19 +114,23 @@ class Ensemble:
 
     def delete_person(self, person):
         """
-        Method that deletes a person from dictionnary prevously updated from database.
+        Method that deletes a person (by its fullname) from dictionnary previously 
+        updated from database.
         Returns True if deleted. False if not.
         """
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
+
+        if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0 :
+            return False #bad full name input
         
         if isinstance(person, Person):
-            prenom = person.get_prenom()
-            nom = person.get_nom()
+            prenom = person.get_prenom().lower()
+            nom = person.get_nom().lower()
             values_to_del = []
 
             for element in self.list_person.keys():
-                if prenom in element or nom in element:
+                if f"{prenom} {nom}" in element:
                     values_to_del.append(element)
 
             for to_del in values_to_del:

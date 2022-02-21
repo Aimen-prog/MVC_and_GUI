@@ -8,9 +8,11 @@ class Controller():
         self.model = Ensemble()
     
     def start_view(self):
+        self.view.protocol("WM_DELETE_WINDOW", self.quit_program)
         self.view.create_fields()
         self.view.main()
-    
+
+        
     def search(self):
         
         """
@@ -32,9 +34,14 @@ class Controller():
         else :
             self.view.empty_field_error()
 
-
-        
+       
     def delete(self):
+        """
+        Method that verifies input by calling 'delete_person' method
+        if verified (person exists in database annuaire.tsv = deleted from dict),
+        it calls 'delete_from_annuaire' method to delete the row(s) from 'annuaire.tsv'
+                            (delete by FULL name)
+        """
         
         person = Person(self.view.get_value("Nom"),
             self.view.get_value("Prenom"),
@@ -44,9 +51,9 @@ class Controller():
 
         if self.model.delete_person(person) : # if deleted from dict then del from db
             self.model.delete_from_annuaire(person)
-            self.view.insertion_done() 
-        
-
+            self.view.deletion_done() 
+        else:
+            self.view.deletion_failed() 
 
 
     def insert(self):
@@ -66,6 +73,12 @@ class Controller():
             self.view.insertion_done() 
         else:
             self.view.insertion_failed()
+        
+    def quit_program(self):
+        """
+        Method that calls "quit_secure" for quit program confirmation 
+        """
+        self.view.quit_secure()
             
 
     def button_press_handle(self, buttonId):
@@ -76,8 +89,7 @@ class Controller():
             self.delete()
         elif buttonId == "Inserer":
             self.insert()
-        else:
-            pass
+
 
 if __name__ == "__main__":
     controller = Controller()

@@ -26,8 +26,7 @@ class View(Tk):
         self.modelListFields = []
         self.fileName = None
         self.windows ={}
-        self.windows["fenetreResult"] = ...
-        self.windows["fenetreErreur"] = ...
+
 
     def get_value(self, key):
         return self.widgets_entry[key].get()
@@ -80,14 +79,28 @@ class View(Tk):
 
     def insertion_failed(self) :
                 
-        """Method displaying a warning message: person (full name) already in the database
+        """Method displaying an error message: person (full name) already in the database
         or bad input"""
         
-        messagebox.showwarning('Insertion failed!', 'Possible reasons:\nPerson exists already\nWrong input(empty full name fields/inappropriate full name)')
+        messagebox.showerror('Insertion status', 'Insertion FAILED!\npossible reasons:\nPerson exists already\nWrong input(empty full name fields/inappropriate full name)')
 
-
+    def deletion_done(self) :
+                
+        """Method displaying a successful deletion message"""
         
-    
+        messagebox.showinfo('Deletion status', 'Deletion successfully done!')
+
+    def deletion_failed(self) :
+                
+        """Method displaying an error message: person (Full name= last+st names) not 
+        in the database "annuaire.tsv" or bad input(empty fields/wrong full name)"""
+        
+        messagebox.showerror('Deletion status', 'Deletion FAILED!\npossible reasons:\nPerson unavailable in database\nWrong input(empty FULL NAME fields, wrong FULL NAME)')
+        
+    def quit_secure(self):
+        response = messagebox.askokcancel("Quit", "Are you sur you want to quit?")
+        if response:
+            self.destroy()
     
     
     def main(self):
