@@ -4,7 +4,7 @@ Content:
 <br>
 -Search person(s) by <b>last name</b> in 'annuaire.tsv' database
 <br>
--Delete/Insert person(s) by <b>fULL name</b> 
+-Delete/Insert person(s) by <b>FULL name</b> 
 <br>
 
 Start Gui :
@@ -13,4 +13,6 @@ Start Gui :
 cd ~/Desktop
 python3 main.py
 ```
+#Author
 
+CHERIF Aimen
