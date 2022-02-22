@@ -13,6 +13,6 @@ Start Gui :
 cd ~/Desktop
 python3 main.py
 ```
-#Author
+# Author
 
 CHERIF Aimen
