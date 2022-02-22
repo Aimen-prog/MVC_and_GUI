@@ -78,6 +78,7 @@ class Ensemble:
         """
 
         nom = person.get_nom().lower()
+        prenom = person.get_prenom().lower()
         with open('annuaire_after_deletion.tsv', 'w+') as output_file:
             fieldnames = ["Nom", "Prenom", "Telephone", "Adresse", "Ville"]
             writer = csv.DictWriter(output_file,fieldnames=fieldnames, delimiter='\t')
@@ -85,8 +86,10 @@ class Ensemble:
                 reader = csv.DictReader(input_file, delimiter='\t')
 
                 for row in reader:
-                    if nom != row['Nom'].lower():
+                    if nom != row['Nom'].lower() or prenom != row['Prenom'].lower():
+                        #writer.write(fieldnames)
                         writer.writerow(row) ; # write all non-matching rows
+                        print(row)
                     else:
                         print("Deleted") # nothing to write
 
