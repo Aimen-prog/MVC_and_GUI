@@ -78,9 +78,9 @@ class View(Tk):
     def insertion_failed(self) :
 
         """Method displaying an error message: person (full name) already in the database
-        or bad input"""
+        or empty input"""
 
-        messagebox.showerror('Insertion status', 'Insertion FAILED!\npossible reasons:\nPerson exists already\nWrong input(empty full name fields/inappropriate full name)')
+        messagebox.showerror('Insertion status', 'Insertion FAILED!\nPossible reasons:\n-Person exists already\n-Empty full name fields')
 
     def deletion_done(self) :
 
@@ -90,9 +90,9 @@ class View(Tk):
     def deletion_failed(self) :
 
         """Method displaying an error message: person (Full name= last+st names) not
-        in the database "annuaire.tsv" or bad input(empty fields/wrong full name)"""
+        in the database "annuaire.tsv" or empty input"""
 
-        messagebox.showerror('Deletion status', 'Deletion FAILED!\npossible reasons:\nPerson unavailable in database\nWrong input(empty FULL NAME fields, wrong FULL NAME)')
+        messagebox.showerror('Deletion status', 'Deletion FAILED!\nPossible reasons:\n-Person unavailable in database\n-Empty full name fields')
 
     def quit_secure(self):
         response = messagebox.askokcancel("Quit", "Are you sur you want to quit?")
