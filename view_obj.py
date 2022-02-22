@@ -101,9 +101,8 @@ class View(Tk):
         for idi in self.widgets_entry:
             self.widgets_entry[idi].delete(0, "end")
 
-
     def quit_secure(self):
-        response = messagebox.askokcancel("Quit", "Are you sur you want to quit?")
+        response = messagebox.askokcancel("Quit", "Are you sure you want to quit?")
         if response:
             self.destroy()
 
