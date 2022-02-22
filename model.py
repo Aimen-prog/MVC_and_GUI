@@ -87,7 +87,6 @@ class Ensemble:
 
                 for row in reader:
                     if nom != row['Nom'].lower() or prenom != row['Prenom'].lower():
-                        #writer.write(fieldnames)
                         writer.writerow(row) ; # write all non-matching rows
                         print(row)
                     else:
@@ -115,7 +114,7 @@ class Ensemble:
                 nom = person.get_nom().lower()
                 self.list_person[f"{prenom} {nom}"] = person #dict updated but by stacking!
 
-                curr_dict_len= len(self.list_person) #current length of dict    
+                curr_dict_len= len(self.list_person) #current length of dict
                 if curr_dict_len != init_dict_len :
                     return True #to be added (not duplicated)
                 else:
@@ -159,7 +158,7 @@ class Ensemble:
     def search_person(self, lname, person_fetched = ''):
 
         """
-        Method that searches a person in a database (annuaire) by its last name 
+        Method that searches a person in a database (annuaire) by its last name
         and returns its corresponding informations.
         If many persons with same last name, it returns all of these persons. ;)
         """
