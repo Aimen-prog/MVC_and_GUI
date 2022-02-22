@@ -106,7 +106,7 @@ class Ensemble:
         self.update_person_dict()
         init_dict_len= len(self.list_person) #initial length of dict
 
-        if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0 :
+        if len(person.nom.replace(" ", "")) == 0 or len(person.prenom.replace(" ", "")) == 0:
             return False #bad full name input
         else :
             if isinstance(person, Person) :
