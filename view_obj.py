@@ -94,6 +94,14 @@ class View(Tk):
 
         messagebox.showerror('Deletion status', 'Deletion FAILED!\nPossible reasons:\n-Person unavailable in database\n-Empty full name fields')
 
+    def clearup(self):
+        """
+        Method that clears entries after button clicks
+        """
+        for idi in self.widgets_entry:
+            self.widgets_entry[idi].delete(0, "end")
+
+
     def quit_secure(self):
         response = messagebox.askokcancel("Quit", "Are you sur you want to quit?")
         if response:

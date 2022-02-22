@@ -46,6 +46,7 @@ class Controller():
 
         else :
             self.view.empty_field_error()
+        self.view.clearup()
 
 
     def delete(self):
@@ -67,6 +68,7 @@ class Controller():
             self.view.deletion_done()
         else:
             self.view.deletion_failed()
+        self.view.clearup()
 
 
     def insert(self):
@@ -86,6 +88,7 @@ class Controller():
             self.view.insertion_done()
         else:
             self.view.insertion_failed()
+        self.view.clearup()
 
     def quit_program(self):
         """
